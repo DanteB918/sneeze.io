@@ -1,0 +1,9 @@
+#ignoring cache files
+static/.webassets-cache
+__pycache__
+/bin
+/lib
+#ignore virtualenv
+/venv
+/path
+database.db

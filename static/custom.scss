@@ -1,0 +1,39 @@
+/*
+*   Styles for the home page of the application.
+*   Author: Dante Bradshaw
+*/
+
+body{
+    background-color: rgb(94, 36, 227);
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:monospace;
+    p{
+        color: white;
+    }
+    h1{
+        color: white;
+    }
+    .sneeze-cont{
+        border: 1px solid white;
+        p{
+            text-align: center;
+        }
+    }
+    button{
+        padding: 0 2%;
+        background-color: white;
+        color: rgb(94, 36, 227);
+        border: 2px solid black;
+    }
+
+}
+#form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    input{
+    }
+}

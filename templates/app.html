@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!--Bootstrap-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <!-- Jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <title>{{ title }}</title>
+        {% assets "scss_all" %}
+            <link rel=stylesheet type=text/css href="{{ ASSET_URL }}">
+        {% endassets %}
+    </head>
+    <body>
+        <div class="container">
+            <h1 style="text-align: center;">Sneeze Chart</h1>
+            <div class="row d-flex justify-content-center">
+                {% for worker in workers  %}    
+                <div class="col-lg-4 col-md-12 sneeze-cont">
+                    <p>Name: {{ worker.firstname }} {{ worker.lastname }}</p>
+                    <p id="{{ worker.id }}">Sneeze Count: {{ worker.sneezes }}</p>
+                    <div class="d-flex justify-content-center mb-2">
+                        <button onClick="increase({{worker.id}})" id="increment-{{ worker.id }}">+</button>
+                        <button onClick="decrease({{worker.id}})" id="deincrement-{{ worker.id }}">-</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div style="text-align: center;">
+                <br />
+                <button id="clearChart" >Clear</button><br /><br />
+                <a href="{{ url_for('hello_world') }}"><button>Add more peeps</button></a>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    //Send AJAX Request
+    $("#clearChart").click(function(e){
+      e.preventDefault();
+      if (confirm('Are you sure?') === true){
+        $.ajax({
+            type: 'POST',
+            url: '/clear',
+            dataType: 'json',
+            contentType: "application/json",
+            data: {'clear': 'true'},
+            success: function (data) {
+                var response = JSON.parse(data);
+                if ( response === true ){
+                    $("#clearChart").html('Successfully Cleared');
+                    $('.sneeze-cont').each(function() {$(this).fadeOut()});
+                }
+            },
+            error: function(e) {
+                console.log(e);
+            },
+        });
+      }
+    });
+
+    function decrease(id)
+    {
+      event.preventDefault();
+      $.ajax({
+            type: 'POST',
+            url: '/decrease/' + id,
+            dataType: 'json',
+            contentType: "application/json",
+            data: {'decrease': 'true'},
+            success: function (data) {
+                var response = JSON.parse(data);
+                $("#" + id).html("Sneeze Count: " + response);                
+            },
+            error: function(e) {
+                console.log(e);
+            },
+      });
+    }
+    function increase(id)
+    {
+      event.preventDefault();
+      $.ajax({
+            type: 'POST',
+            url: '/increase/' + id,
+            dataType: 'json',
+            contentType: "application/json",
+            data: {'increase': 'true'},
+            success: function (data) {
+                var response = JSON.parse(data);
+                $("#" + id).html("Sneeze Count: " +response);                
+            },
+            error: function(e) {
+                console.log(e);
+            },
+      });
+    }
+    
+    </script>

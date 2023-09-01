@@ -1,0 +1,32 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dante918\/projects\/flask-formfiller\/static\/custom\.scss}line{font-family:\000033}}
+body {
+  background-color: #5e24e3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: monospace; }
+  @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dante918\/projects\/flask-formfiller\/static\/custom\.scss}line{font-family:\000039}}
+  body p {
+    color: white; }
+    @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dante918\/projects\/flask-formfiller\/static\/custom\.scss}line{font-family:\0000312}}
+    body h1 {
+      color: white; }
+      @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dante918\/projects\/flask-formfiller\/static\/custom\.scss}line{font-family:\0000315}}
+      body .sneeze-cont {
+        border: 1px solid white; }
+        @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dante918\/projects\/flask-formfiller\/static\/custom\.scss}line{font-family:\0000317}}
+        body .sneeze-cont p {
+          text-align: center; }
+  @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dante918\/projects\/flask-formfiller\/static\/custom\.scss}line{font-family:\0000321}}
+  body button {
+    padding: 0 2%;
+    background-color: white;
+    color: #5e24e3;
+    border: 2px solid black; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dante918\/projects\/flask-formfiller\/static\/custom\.scss}line{font-family:\0000329}}
+#form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; }
