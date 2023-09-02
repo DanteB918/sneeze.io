@@ -5,13 +5,21 @@ import requests #Used for decoding utf charset 8
 from flask_assets import Environment, Bundle #SCSS compiler
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
+from flaskwebgui import FlaskUI # import FlaskUI
+from flask_socketio import SocketIO
+from engineio.async_drivers import gevent
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
-app.config['ASSETS_DEBUG'] = True
+socketio = SocketIO(app, async_mode='gevent')
 
+# socketio = SocketIO(app)
+ui = FlaskUI(app=app, socketio=socketio, fullscreen=False, server="flask_socketio", width=800,height=600,)
+
+app.config['ASSETS_DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] =\
         'sqlite:///' + os.path.join(basedir, 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -46,7 +54,8 @@ assets.config['PYSCSS_ASSETS_URL'] = assets.url
 assets.config['PYSCSS_ASSETS_ROOT'] = assets.directory
 
 assets.register('scss_all', scss)
-
+with app.app_context():
+    db.create_all()
 
 
 
@@ -91,5 +100,10 @@ def increase_sneezes(id):
     db.session.commit()
     return jsonify([worker.sneezes])
 
+@app.errorhandler(Exception)
+def exception_handler(error):
+    return "!!!!"  + repr(error)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    #socketio.run(app)
+    ui.run()
