@@ -89,8 +89,9 @@ def clear_ppl():
 @app.post("/decrease/<id>")
 def decrease_sneezes(id):
     worker = Worker.query.get(id)
-    worker.sneezes -= 1
-    db.session.commit()
+    if worker.sneezes >= 1:
+        worker.sneezes -= 1
+        db.session.commit()
     return jsonify([worker.sneezes])
 
 @app.post("/increase/<id>")
@@ -100,10 +101,11 @@ def increase_sneezes(id):
     db.session.commit()
     return jsonify([worker.sneezes])
 
-@app.errorhandler(Exception)
-def exception_handler(error):
-    return "!!!!"  + repr(error)
+# This is pretty nifty for troubleshooting.
+# @app.errorhandler(Exception)
+# def exception_handler(error):
+#     return "!!!!"  + repr(error)
 
 if __name__ == '__main__':
-    #socketio.run(app)
+    #socketio.run(app) <- for development
     ui.run()

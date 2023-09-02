@@ -12,6 +12,7 @@ a = Analysis(
         ('templates/*.html', 'templates'),
         ('static/*.css', 'static'),
         ('static/*.scss', 'static'),
+        ('static/*.ico', 'static'),
     ],
     hiddenimports=[],
     hookspath=[],
@@ -33,7 +34,7 @@ exe = EXE(
     a.datas,
     [],
     name='Sneeze.io',
-    debug=True,
+    debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
@@ -45,5 +46,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['templates\\assets\\favicon.ico'],
+    icon=['static\\favicon.ico'],
 )
